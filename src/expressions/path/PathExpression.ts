@@ -86,7 +86,7 @@ class PathExpression extends Expression {
 							!isSubtypeOf(childContext.value.contextItem.type, 'node()')
 						) {
 							throw new Error(
-								'XPTY0019: The / operator can only be applied to xml/json nodes.'
+								'XPTY0019: Axes can only be applied to xml/json nodes.'
 							);
 						}
 						return ready(
