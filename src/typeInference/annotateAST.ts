@@ -41,14 +41,18 @@ export function annotate(ast: IAST): SequenceType | undefined {
 	switch (ast[0]) {
 		case 'unaryMinusOp':
 			return annotateUnaryMinusOp(ast);
-		case 'addOp':
+		case 'addOp': {
 			const left = annotate(ast[1][1] as IAST);
 			const right = annotate(ast[2][1] as IAST);
 
 			return annotateAddOp(ast, left, right);
-		case 'substractOpp':
+		}
+		case 'substractOpp': {
+			const left = annotate(ast[1][1] as IAST);
+			const right = annotate(ast[2][1] as IAST);
 
 			return annotateSubstractOpp(ast, left, right);
+		}
 		case 'integerConstantExpr':
 			ast.push([
 				'type',
