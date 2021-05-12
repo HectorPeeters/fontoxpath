@@ -114,3 +114,21 @@ export function annotateAddOp(
 
 	return undefined;
 }
+
+export function annotateSubstractOpp(
+	ast: IAST,
+	left: SequenceType | undefined,
+	right: SequenceType | undefined
+) {
+	if (
+		(isSubtypeOf(left.type, ValueType.XSDATETIME) &&
+			isSubtypeOf(right.type, ValueType.XSDATETIME)) ||
+		(isSubtypeOf(left.type, ValueType.XSDATE) && isSubtypeOf(right.type, ValueType.XSDATE)) ||
+		(isSubtypeOf(left.type, ValueType.XSTIME) && isSubtypeOf(right.type, ValueType.XSTIME))
+	) {
+		ast.push(['type', { type: ValueType.XSDAYTIMEDURATION, mult: left.mult }]);
+		return { type: ValueType.XSDAYTIMEDURATION, mult: left.mult };
+	} else {
+		annotateAddOp(ast, left, right);
+	}
+}
