@@ -129,6 +129,6 @@ export function annotateSubstractOpp(
 		ast.push(['type', { type: ValueType.XSDAYTIMEDURATION, mult: left.mult }]);
 		return { type: ValueType.XSDAYTIMEDURATION, mult: left.mult };
 	} else {
-		annotateAddOp(ast, left, right);
+		return annotateAddOp(ast, left, right);
 	}
 }
