@@ -1,6 +1,6 @@
 import { SequenceMultiplicity, SequenceType, ValueType } from '../expressions/dataTypes/Value';
 import { IAST } from '../parsing/astHelper';
-import { annotateAdditionOp, annotateSubtractOp } from './annotateBinaryOperator';
+import { annotateAdditionOp, annotateDivOp, annotateSubtractOp } from './annotateBinaryOperator';
 
 export default function annotateAst(ast: IAST): SequenceType | undefined {
 	const type = annotateUpperLevel(ast);
@@ -52,6 +52,11 @@ export function annotate(ast: IAST): SequenceType | undefined {
 			const right = annotate(ast[2][1] as IAST);
 
 			return annotateSubtractOp(ast, left, right);
+		}
+		case 'divOp': {
+			const left = annotate(ast[1][1] as IAST);
+			const right = annotate(ast[2][1] as IAST);
+			return annotateDivOp(ast, left, right);
 		}
 		case 'integerConstantExpr':
 			ast.push([

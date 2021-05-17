@@ -25,7 +25,7 @@ import {
 } from '../../dataTypes/valueTypes/YearMonthDuration';
 import Expression from '../../Expression';
 
-function determineReturnType(typeA: ValueType, typeB: ValueType): ValueType {
+export function determineReturnType(typeA: ValueType, typeB: ValueType): ValueType {
 	if (isSubtypeOf(typeA, ValueType.XSINTEGER) && isSubtypeOf(typeB, ValueType.XSINTEGER)) {
 		return ValueType.XSINTEGER;
 	}
