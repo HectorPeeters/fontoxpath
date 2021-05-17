@@ -13,7 +13,7 @@ const BINOP_LOOKUP: BinOpLookupTable = {
 	[ValueType.XSFLOAT + ValueType.XSFLOAT * 1000]: ValueType.XSFLOAT,
 };
 
-export function annotateAddOp(
+export function annotateAdditionOp(
 	ast: IAST,
 	left: SequenceType | undefined,
 	right: SequenceType | undefined
@@ -115,7 +115,7 @@ export function annotateAddOp(
 	return undefined;
 }
 
-export function annotateSubstractOpp(
+export function annotateSubtractOp(
 	ast: IAST,
 	left: SequenceType | undefined,
 	right: SequenceType | undefined
@@ -129,6 +129,6 @@ export function annotateSubstractOpp(
 		ast.push(['type', { type: ValueType.XSDAYTIMEDURATION, mult: left.mult }]);
 		return { type: ValueType.XSDAYTIMEDURATION, mult: left.mult };
 	} else {
-		return annotateAddOp(ast, left, right);
+		return annotateAdditionOp(ast, left, right);
 	}
 }
