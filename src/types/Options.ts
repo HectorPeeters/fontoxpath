@@ -60,8 +60,6 @@ export type NamespaceResolver = (prefix: string) => string | null;
  * @public
  */
 export type Options = {
-	annotateAst?: boolean;
-
 	/**
 	 * Whether or not the AST should get annotated after parsing an expression. The annotation adds
 	 * additional type information to the AST.
