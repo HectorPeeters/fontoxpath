@@ -62,12 +62,17 @@ function generateBinaryOperatorFunction(
 			castB: castFunctionForValueB ? castFunctionForValueB(valueB) : valueB,
 		};
 	}
-
 	if (operator === 'addOp' && retType) {
 		return (a, b) => {
 			const { castA, castB } = applyCastFunctions(a, b);
 
 			return createAtomicValue(castA.value + castB.value, retType.type);
+		};
+	} else if (operator === 'subtractOp' && retType) {
+		return (a, b) => {
+			const { castA, castB } = applyCastFunctions(a, b);
+
+			return createAtomicValue(castA.value - castB.value, retType.type);
 		};
 	}
 
