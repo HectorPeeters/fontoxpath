@@ -13,7 +13,7 @@ const BINOP_LOOKUP: BinOpLookupTable = {
 	[ValueType.XSFLOAT + ValueType.XSFLOAT * 1000]: ValueType.XSFLOAT,
 };
 
-export function annotateAdditionOp(
+function annotateBinOpCommon(
 	ast: IAST,
 	left: SequenceType | undefined,
 	right: SequenceType | undefined
@@ -113,6 +113,14 @@ export function annotateAdditionOp(
 	}
 
 	return undefined;
+}
+
+function annotateAdditionOp(
+	ast: IAST,
+	left: SequenceType | undefined,
+	right: SequenceType | undefined
+) {
+	return annotateBinOpCommon(ast, left, right);
 }
 
 export function annotateSubtractOp(
