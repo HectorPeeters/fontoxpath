@@ -47,7 +47,7 @@ export function annotate(ast: IAST): SequenceType | undefined {
 
 			return annotateAddOp(ast, left, right);
 		}
-		case 'substractOpp': {
+		case 'subtractOp': {
 			const left = annotate(ast[1][1] as IAST);
 			const right = annotate(ast[2][1] as IAST);
 
