@@ -60,6 +60,8 @@ export type NamespaceResolver = (prefix: string) => string | null;
  * @public
  */
 export type Options = {
+	annotateAst?: boolean;
+
 	/**
 	 * The current context for a query. Will be passed whenever an extension function is called. Can be
 	 * used to implement the current function in XSLT.
@@ -151,6 +153,4 @@ export type Options = {
 	 * elements using the document implementation related to the passed context node.
 	 */
 	nodesFactory?: INodesFactory;
-
-	annotateAst?: boolean;
 };
