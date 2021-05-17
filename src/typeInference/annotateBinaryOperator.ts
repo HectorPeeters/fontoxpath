@@ -115,7 +115,7 @@ function annotateBinOpCommon(
 	return undefined;
 }
 
-function annotateAdditionOp(
+export function annotateAdditionOp(
 	ast: IAST,
 	left: SequenceType | undefined,
 	right: SequenceType | undefined
