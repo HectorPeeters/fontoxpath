@@ -75,15 +75,17 @@ abstract class FlworExpression extends Expression {
 									return DONE_TOKEN;
 								}
 
-								const updateListAndValue = this._returnExpression.evaluateWithUpdateList(
-									currentDynamicContext.value,
-									executionParameters
-								);
-								currentReturnValueGenerator = separateXDMValueFromUpdatingExpressionResult(
-									updateListAndValue,
-									(pendingUpdates) =>
-										(updateList = mergeUpdates(updateList, pendingUpdates))
-								).value;
+								const updateListAndValue =
+									this._returnExpression.evaluateWithUpdateList(
+										currentDynamicContext.value,
+										executionParameters
+									);
+								currentReturnValueGenerator =
+									separateXDMValueFromUpdatingExpressionResult(
+										updateListAndValue,
+										(pendingUpdates) =>
+											(updateList = mergeUpdates(updateList, pendingUpdates))
+									).value;
 							}
 
 							const nextValue = currentReturnValueGenerator.next(IterationHint.NONE);
@@ -141,10 +143,11 @@ abstract class FlworExpression extends Expression {
 								if (temp.done) {
 									return DONE_TOKEN;
 								}
-								currentSequenceIterator = this._returnExpression.evaluateMaybeStatically(
-									temp.value,
-									executionParameters
-								).value;
+								currentSequenceIterator =
+									this._returnExpression.evaluateMaybeStatically(
+										temp.value,
+										executionParameters
+									).value;
 							}
 
 							const nextValue = currentSequenceIterator.next(hint);
@@ -214,10 +217,11 @@ abstract class FlworExpression extends Expression {
 								if (temp.done) {
 									return DONE_TOKEN;
 								}
-								currentSequenceIterator = this._returnExpression.evaluateMaybeStatically(
-									temp.value,
-									executionParameters
-								).value;
+								currentSequenceIterator =
+									this._returnExpression.evaluateMaybeStatically(
+										temp.value,
+										executionParameters
+									).value;
 							}
 
 							const nextValue = currentSequenceIterator.next();

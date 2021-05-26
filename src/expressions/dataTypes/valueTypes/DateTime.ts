@@ -1,4 +1,4 @@
-import { SequenceMultiplicity, ValueType } from '../Value';
+import { ValueType } from '../Value';
 import AbstractDuration from './AbstractDuration';
 import DayTimeDuration from './DayTimeDuration';
 
@@ -324,7 +324,8 @@ class DateTime {
 // gDay        |         ---dd            (Z|[+-]hh:mm)
 // gMonth      |       --mm               (Z|[+-]hh:mm)
 DateTime.fromString = (dateString: string): DateTime => {
-	const regex = /^(?:(-?\d{4,}))?(?:--?(\d\d))?(?:-{1,3}(\d\d))?(T)?(?:(\d\d):(\d\d):(\d\d))?(\.\d+)?(Z|(?:[+-]\d\d:\d\d))?$/;
+	const regex =
+		/^(?:(-?\d{4,}))?(?:--?(\d\d))?(?:-{1,3}(\d\d))?(T)?(?:(\d\d):(\d\d):(\d\d))?(\.\d+)?(Z|(?:[+-]\d\d:\d\d))?$/;
 	const match = regex.exec(dateString);
 
 	const years = match[1] ? parseInt(match[1], 10) : null;

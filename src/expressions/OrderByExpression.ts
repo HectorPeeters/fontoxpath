@@ -4,7 +4,7 @@ import ISequence from './dataTypes/ISequence';
 import isSubtypeOf from './dataTypes/isSubtypeOf';
 import sequenceFactory from './dataTypes/sequenceFactory';
 import { getPrimitiveTypeName } from './dataTypes/typeHelpers';
-import Value, { SequenceMultiplicity, ValueType } from './dataTypes/Value';
+import Value, { ValueType } from './dataTypes/Value';
 import DynamicContext from './DynamicContext';
 import ExecutionParameters from './ExecutionParameters';
 import Expression, { RESULT_ORDERINGS } from './Expression';
@@ -81,9 +81,8 @@ class OrderByExpression extends FlworExpression {
 		return sequenceFactory.create({
 			next: () => {
 				if (!hasValues) {
-					let iteratorResult: IterationResult<DynamicContext> = dynamicContextIterator.next(
-						IterationHint.NONE
-					);
+					let iteratorResult: IterationResult<DynamicContext> =
+						dynamicContextIterator.next(IterationHint.NONE);
 					while (!iteratorResult.done) {
 						dynamicContexts.push(iteratorResult.value);
 						iteratorResult = dynamicContextIterator.next(IterationHint.NONE);

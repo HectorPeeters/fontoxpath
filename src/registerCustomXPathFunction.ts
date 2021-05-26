@@ -96,9 +96,10 @@ function adaptXPathValueToJavascriptValue(
 	).value;
 }
 
-function splitFunctionName(
-	name: string | { localName: string; namespaceURI: string }
-): { localName: string; namespaceURI: string } {
+function splitFunctionName(name: string | { localName: string; namespaceURI: string }): {
+	localName: string;
+	namespaceURI: string;
+} {
 	if (typeof name === 'object') {
 		return name;
 	}

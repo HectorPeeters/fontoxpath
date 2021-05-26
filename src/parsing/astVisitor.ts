@@ -1,8 +1,9 @@
 import { IAST } from './astHelper';
 
+/* tslint:disable:member-ordering */
 export abstract class AstVisitor<T, O> {
 	visit(ast: IAST, options: O): T {
-		switch (ast[0] as string) {
+		switch (ast[0]) {
 			case 'andOp':
 			case 'orOp':
 				return this.visitLogicalOp(ast, options);

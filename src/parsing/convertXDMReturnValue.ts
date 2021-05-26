@@ -8,7 +8,7 @@ import ISequence from '../expressions/dataTypes/ISequence';
 import isSubtypeOf from '../expressions/dataTypes/isSubtypeOf';
 import MapValue from '../expressions/dataTypes/MapValue';
 import sequenceFactory from '../expressions/dataTypes/sequenceFactory';
-import { SequenceMultiplicity, ValueType } from '../expressions/dataTypes/Value';
+import { ValueType } from '../expressions/dataTypes/Value';
 import ExecutionParameters from '../expressions/ExecutionParameters';
 import { IterationHint } from '../expressions/util/iterators';
 import transformXPathItemToJavascriptObject, {
@@ -223,9 +223,9 @@ export default function convertXDMReturnValue<
 						}),
 				};
 			} else {
-				toReturn = ({
+				toReturn = {
 					next: () => new Promise((resolve) => resolve(getNextResult())),
-				} as unknown) as AsyncIterableIterator<any>;
+				} as unknown as AsyncIterableIterator<any>;
 			}
 			return toReturn as IReturnTypes<TNode>[TReturnType];
 		}

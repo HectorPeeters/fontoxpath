@@ -86,6 +86,7 @@ function disallowUpdating(compilationOptions: CompilationOptions) {
 
 type CompilationOptions = { allowUpdating?: boolean; allowXQuery?: boolean };
 
+/* tslint:disable:member-ordering */
 class CompileVisitor extends AstVisitor<Expression, CompilationOptions> {
 	visitLogicalOp(ast: IAST, options: CompilationOptions): Expression {
 		switch (ast[0]) {

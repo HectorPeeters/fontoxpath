@@ -1,4 +1,4 @@
-import { SequenceType, ValueType } from '../expressions/dataTypes/Value';
+import { SequenceType } from '../expressions/dataTypes/Value';
 import { LexicalQualifiedName, ResolvedQualifiedName } from '../types/Options';
 import IContext from './Context';
 import ISequence from './dataTypes/ISequence';
@@ -108,8 +108,10 @@ export default class StaticContext implements IContext {
 				Object.create(null),
 				this._registeredFunctionsByHash
 			);
-			contextAtThisPoint.registeredVariableDeclarationByHashKey = this.registeredVariableDeclarationByHashKey;
-			contextAtThisPoint.registeredDefaultFunctionNamespaceURI = this.registeredDefaultFunctionNamespaceURI;
+			contextAtThisPoint.registeredVariableDeclarationByHashKey =
+				this.registeredVariableDeclarationByHashKey;
+			contextAtThisPoint.registeredDefaultFunctionNamespaceURI =
+				this.registeredDefaultFunctionNamespaceURI;
 		}
 
 		return contextAtThisPoint;
