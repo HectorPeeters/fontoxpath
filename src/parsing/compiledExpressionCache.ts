@@ -6,8 +6,9 @@ import { FunctionNameResolver } from '../types/Options';
 
 const compiledExpressionCache: { [s: string]: { [s: string]: CacheEntry[] } } = Object.create(null);
 
-const halfCompiledExpressionCache: { [s: string]: { [s: string]: Expression } } =
-	Object.create(null);
+const halfCompiledExpressionCache: { [s: string]: { [s: string]: Expression } } = Object.create(
+	null
+);
 
 class CacheEntry {
 	constructor(

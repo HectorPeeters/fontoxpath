@@ -81,8 +81,9 @@ class OrderByExpression extends FlworExpression {
 		return sequenceFactory.create({
 			next: () => {
 				if (!hasValues) {
-					let iteratorResult: IterationResult<DynamicContext> =
-						dynamicContextIterator.next(IterationHint.NONE);
+					let iteratorResult: IterationResult<DynamicContext> = dynamicContextIterator.next(
+						IterationHint.NONE
+					);
 					while (!iteratorResult.done) {
 						dynamicContexts.push(iteratorResult.value);
 						iteratorResult = dynamicContextIterator.next(IterationHint.NONE);
