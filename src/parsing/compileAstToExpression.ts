@@ -88,6 +88,10 @@ type CompilationOptions = { allowUpdating?: boolean; allowXQuery?: boolean };
 
 /* tslint:disable:member-ordering */
 class CompileVisitor extends AstVisitor<Expression, CompilationOptions> {
+	constructor() {
+		super(false);
+	}
+
 	visitLogicalOp(ast: IAST, options: CompilationOptions): Expression {
 		switch (ast[0]) {
 			case 'andOp': {
@@ -107,33 +111,24 @@ class CompileVisitor extends AstVisitor<Expression, CompilationOptions> {
 		}
 	}
 
-	visitUnaryOp(ast: IAST, options: CompilationOptions): Expression {
-		switch (ast[0]) {
-			case 'unaryPlusOp': {
-				const operand = astHelper.getFirstChild(
-					astHelper.getFirstChild(ast, 'operand'),
-					'*'
-				);
-				const typeNode = astHelper.followPath(ast, ['type']);
-				return new Unary(
-					'+',
-					this.visit(operand, options),
-					typeNode ? (typeNode[1] as SequenceType) : undefined
-				);
-			}
-			case 'unaryMinusOp': {
-				const operand = astHelper.getFirstChild(
-					astHelper.getFirstChild(ast, 'operand'),
-					'*'
-				);
-				const typeNode = astHelper.followPath(ast, ['type']);
-				return new Unary(
-					'-',
-					this.visit(operand, options),
-					typeNode ? (typeNode[1] as SequenceType) : undefined
-				);
-			}
-		}
+	visitUnaryPlusOp(ast: IAST, options: CompilationOptions): Expression {
+		const operand = astHelper.getFirstChild(astHelper.getFirstChild(ast, 'operand'), '*');
+		const typeNode = astHelper.followPath(ast, ['type']);
+		return new Unary(
+			'+',
+			this.visit(operand, options),
+			typeNode ? (typeNode[1] as SequenceType) : undefined
+		);
+	}
+
+	visitUnaryMinusOp(ast: IAST, options: CompilationOptions): Expression {
+		const operand = astHelper.getFirstChild(astHelper.getFirstChild(ast, 'operand'), '*');
+		const typeNode = astHelper.followPath(ast, ['type']);
+		return new Unary(
+			'-',
+			this.visit(operand, options),
+			typeNode ? (typeNode[1] as SequenceType) : undefined
+		);
 	}
 
 	visitBinaryOp(ast: IAST, options: CompilationOptions): Expression {

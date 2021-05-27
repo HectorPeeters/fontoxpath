@@ -2,14 +2,21 @@ import { IAST } from './astHelper';
 
 /* tslint:disable:member-ordering */
 export abstract class AstVisitor<T, O> {
+	private _shouldVisitUnknownNodes: boolean;
+
+	constructor(shouldVisitUnknownNodes: boolean) {
+		this._shouldVisitUnknownNodes = shouldVisitUnknownNodes;
+	}
+
 	visit(ast: IAST, options: O): T {
 		switch (ast[0]) {
 			case 'andOp':
 			case 'orOp':
 				return this.visitLogicalOp(ast, options);
 			case 'unaryPlusOp':
+				return this.visitUnaryPlusOp(ast, options);
 			case 'unaryMinusOp':
-				return this.visitUnaryOp(ast, options);
+				return this.visitUnaryMinusOp(ast, options);
 			case 'addOp':
 			case 'subtractOp':
 			case 'multiplyOp':
@@ -163,12 +170,20 @@ export abstract class AstVisitor<T, O> {
 				return this.visitAnyItemType(ast, options);
 
 			default:
-				throw new Error('No selector counterpart for: ' + ast[0] + '.');
+				if (this._shouldVisitUnknownNodes) {
+					for (let i = 1; i < ast.length; i++) {
+						if (ast[i]) this.visit(ast[i] as IAST, options);
+					}
+					return undefined;
+				} else {
+					throw new Error('No selector counterpart for: ' + ast[0] + '.');
+				}
 		}
 	}
 
 	abstract visitLogicalOp(ast: IAST, options: O): T;
-	abstract visitUnaryOp(ast: IAST, options: O): T;
+	abstract visitUnaryPlusOp(ast: IAST, options: O): T;
+	abstract visitUnaryMinusOp(ast: IAST, options: O): T;
 	abstract visitBinaryOp(ast: IAST, options: O): T;
 	abstract visitSequenceExpr(ast: IAST, options: O): T;
 	abstract visitUnionOp(ast: IAST, options: O): T;
