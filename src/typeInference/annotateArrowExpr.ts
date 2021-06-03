@@ -30,7 +30,6 @@ export function annotateArrowExpr(
 	if (func.length === 3) {
 		functionName = func[2] as string;
 		functionPrefix = astHelper.getAttribute(func, 'prefix') as string;
-		console.log(functionPrefix);
 	} else {
 		functionName = func[1] as string;
 		functionPrefix = '';
