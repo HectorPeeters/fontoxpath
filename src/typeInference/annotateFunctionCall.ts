@@ -22,7 +22,7 @@ export function annotateFunctionCall(
 	let functionPrefix: string;
 	if (func.length === 3) {
 		functionName = func[2] as string;
-		functionPrefix = func[1] as string;
+		functionPrefix = astHelper.getAttribute(func, 'prefix') as string;
 	} else {
 		functionName = func[1] as string;
 		functionPrefix = '';
