@@ -36,7 +36,11 @@ export function annotateBinOp(
 	}
 
 	// TODO: Fix this hack (pathExpr returns a node in 1 case, which cannot be added to an integer)
-	if (left.type === ValueType.NODE || right.type === ValueType.NODE) return undefined;
+	if (left.type === ValueType.NODE || right.type === ValueType.NODE)
+		return {
+			type: ValueType.XSNUMERIC,
+			mult: SequenceMultiplicity.EXACTLY_ONE,
+		};
 	if (left.type === ValueType.ITEM || right.type === ValueType.ITEM) return undefined;
 	if (left.type === ValueType.XSANYATOMICTYPE || right.type === ValueType.XSANYATOMICTYPE)
 		return undefined;
