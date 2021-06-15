@@ -121,9 +121,51 @@ function contextBenchmark(queryToRun: string): void {
 		runTests();
 	};
 
+	function timeFunction(n: number, f: () => void): number {
+		const start = new Date();
+		for (let i = 0; i < n; i++) {
+			f();
+		}
+		const end = new Date();
+		return end.getTime() - start.getTime();
+	}
+
+	function doBenchmarks(iterations: number) {
+		// Some prep if needed if the function has a single-time setup.
+
+		const functionATime = timeFunction(iterations, () =>
+			evaluationBenchmark(
+				contextWithAnnotation.expression,
+				contextWithAnnotation.dynamicContext,
+				contextWithAnnotation.executionParameters
+			)
+		);
+
+		console.log(
+			'contextWithAnnotation took ' + functionATime + ' ms to run ' + iterations + ' times.'
+		);
+
+		const functionBTime = timeFunction(iterations, () =>
+			evaluationBenchmark(
+				contextWithoutAnnotation.expression,
+				contextWithoutAnnotation.dynamicContext,
+				contextWithoutAnnotation.executionParameters
+			)
+		);
+
+		console.log(
+			'contextWithoutAnnotation took ' +
+				functionBTime +
+				' ms to run ' +
+				iterations +
+				' times.'
+		);
+	}
+
 	markXPathStart(queryToRun);
 
 	runBenchmarking();
+	doBenchmarks(1000000);
 
 	markXPathEnd(queryToRun);
 }
