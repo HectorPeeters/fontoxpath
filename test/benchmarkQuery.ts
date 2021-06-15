@@ -1,3 +1,5 @@
+import benchmarkRunner from '@fontoxml/fonto-benchmark-runner';
+import { testFunction } from '@fontoxml/fonto-benchmark-runner/lib/benchmarkRunner/Types';
 import { Suite } from 'benchmark';
 import buildEvaluationContext from '../src/evaluationUtils/buildEvaluationContext';
 import { printAndRethrowError } from '../src/evaluationUtils/printAndRethrowError';
@@ -162,44 +164,44 @@ function contextBenchmark(queryToRun: string): void {
 		);
 	}
 
+	const withAnnotation: { name: string; test: testFunction } = {
+		name: 'withAnnotation',
+		test: () => {
+			evaluationBenchmark(
+				contextWithAnnotation.expression,
+				contextWithAnnotation.dynamicContext,
+				contextWithAnnotation.executionParameters
+			);
+		},
+	};
+
+	const withoutAnnotation: { name: string; test: testFunction } = {
+		name: 'withoutAnnotation',
+		test: () => {
+			evaluationBenchmark(
+				contextWithoutAnnotation.expression,
+				contextWithoutAnnotation.dynamicContext,
+				contextWithoutAnnotation.executionParameters
+			);
+		},
+	};
+
 	markXPathStart(queryToRun);
 
 	runBenchmarking();
 	doBenchmarks(1000000);
 
+	benchmarkRunner.compareBenchmarks(
+		'value type compare',
+		undefined,
+		undefined,
+		withoutAnnotation,
+		withAnnotation
+	);
+
+	// benchmarkRunner.addBenchmark('value type compare', withAnnotation.test);
+
+	benchmarkRunner.run(false);
+
 	markXPathEnd(queryToRun);
 }
-
-// import benchmarkRunner from '@fontoxml/fonto-benchmark-runner';
-// import { testFunction } from '@fontoxml/fonto-benchmark-runner/lib/benchmarkRunner/Types';
-// import { evaluateXPath } from '../src/index';
-
-// const withAnnotation: { name: string; test: testFunction } = {
-// 	name: 'withAnnotation',
-// 	test: () => {
-// 		evaluateXPath(queryString, undefined, undefined, undefined, undefined, {
-// 			annotateAst: true,
-// 		});
-// 	},
-// };
-
-// const withoutAnnotation: { name: string; test: testFunction } = {
-// 	name: 'withoutAnnotation',
-// 	test: () => {
-// 		evaluateXPath(queryString, undefined, undefined, undefined, undefined, {
-// 			annotateAst: false,
-// 		});
-// 	},
-// };
-
-// benchmarkRunner.compareBenchmarks(
-// 	'value type compare',
-// 	undefined,
-// 	undefined,
-// 	withoutAnnotation,
-// 	withAnnotation
-// );
-
-// // benchmarkRunner.addBenchmark('value type compare', withAnnotation.test);
-
-// benchmarkRunner.run(false);
