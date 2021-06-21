@@ -109,6 +109,17 @@ export function castToPrimitiveType(from: ValueType, to: ValueType): (value: Val
 const precomputedCastFunctorsByTypeString = Object.create(null);
 
 function createCastingFunction(from: ValueType, to: ValueType): (value: Value) => CastResult {
+	// If the two types are equal, no casting is required and we can just return the value as it is.
+	if (from === to) {
+		return (val) => ({
+			successful: true,
+			value: {
+				type: to,
+				value: val,
+			},
+		});
+	}
+
 	if (from === ValueType.XSUNTYPEDATOMIC && to === ValueType.XSSTRING) {
 		return (val) => ({
 			successful: true,
@@ -147,17 +158,6 @@ function createCastingFunction(from: ValueType, to: ValueType): (value: Value) =
 		return (_val) => ({
 			successful: false,
 			error: new Error('FOTY0014: Casting from function item to xs:string is not permitted.'),
-		});
-	}
-
-	// If the two types are equal, no casting is required and we can just return the value as it is.
-	if (from === to) {
-		return (val) => ({
-			successful: true,
-			value: {
-				type: to,
-				value: val,
-			},
 		});
 	}
 
