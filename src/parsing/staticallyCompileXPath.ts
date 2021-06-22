@@ -1,7 +1,7 @@
 import ExecutionSpecificStaticContext from '../expressions/ExecutionSpecificStaticContext';
 import Expression from '../expressions/Expression';
 import StaticContext from '../expressions/StaticContext';
-import annotateAst, { countQueryBodyAnnotations } from '../typeInference/annotateAST';
+import annotateAst from '../typeInference/annotateAST';
 import { AnnotationContext } from '../typeInference/AnnotationContext';
 import { FunctionNameResolver } from '../types/Options';
 import astHelper from './astHelper';
@@ -60,9 +60,9 @@ export default function staticallyCompileXPath(
 		// We can not use anything from the cache, parse + compile
 		const ast = parseExpression(xpathString, compilationOptions);
 		const context = new AnnotationContext(rootStaticContext);
-		if (compilationOptions.annotateAst) {
-			annotateAst(ast, context);
-		}
+		// if (compilationOptions.annotateAst) {
+		annotateAst(ast, context);
+		// }
 
 		const mainModule = astHelper.getFirstChild(ast, 'mainModule');
 		if (!mainModule) {
@@ -80,10 +80,6 @@ export default function staticallyCompileXPath(
 				);
 			}
 			processProlog(prolog, rootStaticContext);
-		}
-
-		if (compilationOptions.annotateAst) {
-			annotateAst(ast, context);
 		}
 
 		expression = compileAstToExpression(queryBodyContents, compilationOptions);
